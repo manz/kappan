@@ -5,7 +5,10 @@ on:
 
 jobs:
   wheels:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-24.04-arm]  # star_ocean's CI runs on Linux arm64
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
       - name: Version from the tag
@@ -14,9 +17,10 @@ jobs:
         with:
           target: aarch64
           args: --release --out dist
+          manylinux: auto
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: wheels-${{ matrix.os }}
           path: dist
   sdist:
     runs-on: ubuntu-latest
