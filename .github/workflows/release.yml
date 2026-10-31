@@ -44,12 +44,12 @@ jobs:
     name: Publish to PyPI
     needs: [wheels, sdist]
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # PyPI trusted publishing
     steps:
       - uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
       - uses: astral-sh/setup-uv@v10.2.0
-      - run: uv publish dist/*
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      - run: uv publish --trusted-publishing always dist/*
