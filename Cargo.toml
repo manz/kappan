@@ -1,6 +1,6 @@
 [package]
 name = "kappan"
-version = "0.1.0"
+version = "0.0.0"  # the release sets the tag's version in pyproject.toml
 edition = "2024"
 
 [lib]

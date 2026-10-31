@@ -19,6 +19,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
+      - name: Version from the tag
+        run: sed -i.bak "s/^version = .*/version = \"${GITHUB_REF_NAME#v}\"/" pyproject.toml
       - uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
@@ -32,6 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Version from the tag
+        run: sed -i.bak "s/^version = .*/version = \"${GITHUB_REF_NAME#v}\"/" pyproject.toml
       - uses: PyO3/maturin-action@v1
         with:
           command: sdist

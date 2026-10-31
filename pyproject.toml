@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "kappan"
-version = "0.1.0"
+version = "0.0.0.dev0"  # the release writes the tag here: v0.2.0a1 is 0.2.0a1
 description = "TrueType text as coverage bitmaps for small screens: HarfRust shaping, Skrifa hinting, zeno raster"
 readme = "README.md"
 requires-python = ">=3.12"
