@@ -5,30 +5,18 @@ on:
 
 jobs:
   wheels:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            target: x86_64
-          - os: ubuntu-latest
-            target: aarch64
-          - os: macos-latest
-            target: aarch64
-          - os: macos-latest
-            target: x86_64
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
       - name: Version from the tag
         run: sed -i.bak "s/^version = .*/version = \"${GITHUB_REF_NAME#v}\"/" pyproject.toml
       - uses: PyO3/maturin-action@v1
         with:
-          target: ${{ matrix.target }}
+          target: aarch64
           args: --release --out dist
-          manylinux: auto
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels-${{ matrix.os }}-${{ matrix.target }}
+          name: wheels
           path: dist
   sdist:
     runs-on: ubuntu-latest
