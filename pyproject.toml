@@ -1,0 +1,26 @@
+[build-system]
+requires = ["maturin>=1.9,<2"]
+build-backend = "maturin"
+
+[project]
+name = "kappan"
+version = "0.1.0"
+description = "TrueType text as coverage bitmaps for small screens: HarfRust shaping, Skrifa hinting, zeno raster"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2"]
+license = "MIT"
+
+[tool.maturin]
+module-name = "kappan._kappan"
+python-source = "python"
+features = ["pyo3/extension-module"]
+
+[dependency-groups]
+dev = ["maturin>=1.9,<2", "pytest>=8", "ruff>=0.14"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint.isort]
+known-first-party = ["kappan"]

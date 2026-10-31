@@ -1,0 +1,17 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+      - run: rustup component add rustfmt clippy
+      - run: uv sync --locked
+      - run: make check
